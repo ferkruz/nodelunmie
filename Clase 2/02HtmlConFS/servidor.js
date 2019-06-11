@@ -1,27 +1,28 @@
 const http = require('http');
 const fs = require('fs');
-
 const contentTypes = require('./modulos/contenttype');
-
-const index = require('./modulos/index');
-const ironman = require("./modulos/ironman");
-const avengers = require("./modulos/avengers");
 
 
 const marvelApp = http.createServer((request,response) => {
     switch(request.url){
         case "/":
         case "/index.html":
-            response.writeHead(200,contentTypes.cthtml);
-            response.end(index);
+            fs.readFile("estatico/index.html", "UTF-8", (err,datos) => {
+                response.writeHead(200,contentTypes.cthtml);
+                response.end(datos);
+            });            
         break;
         case "/ironman.html":
-            response.writeHead(200,contentTypes.cthtml);
-            response.end(ironman);
+            fs.readFile("estatico/ironman.html", "UTF-8", (err,datos) => {
+                response.writeHead(200,contentTypes.cthtml);
+                response.end(datos);
+            });  
         break;
         case "/avengers.html":
+        fs.readFile("estatico/avengers.html", "UTF-8", (err,datos) => {
             response.writeHead(200,contentTypes.cthtml);
-            response.end(avengers);
+            response.end(datos);
+        });  
         break;
         case "/Marvel_Cinematic_Universe_logo.png":            
             fs.readFile("Marvel_Cinematic_Universe_logo.png",(err,datos) => {
